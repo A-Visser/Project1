@@ -3,9 +3,7 @@ struct node{
   char artist[50];
   struct node *next;
 };
-struct node * insert_front(struct node *n, char song[50], char singer[50]);
 struct node * insert(struct node *n, char song[50], char singer[50]);
-struct node * insert_alphabetically_helper(struct node *n, struct node *prev, struct node *og, char song[50], char singer[50]);
 struct node * find_song(struct node *n, char song[50], char singer[50]);
 struct node * find_artist(struct node *n, char singer[50]);
 struct node * find_random(struct node *n);

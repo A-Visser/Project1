@@ -10,10 +10,10 @@ void testNodes(){
 
     printf("TESTING INSERT_FRONT AND PRINT_LIST \n");
     printf("n = insert_front(n, Yesterday, Beatles)\n");
-    n = insert_front(n, "Yesterday", "Beatles");
+    n = insert(n, "Yesterday", "Beatles");
     print_list(n);
     printf("n = insert_front(n, Bohemian Rhapsody, Queen)\n");
-    n = insert_front(n, "Bohemian Rhapsody", "Queen");
+    n = insert(n, "Bohemian Rhapsody", "Queen");
     print_list(n);
     printf("==============================================================\n\n");
     n = NULL;
@@ -88,7 +88,6 @@ void testLibrary(){
   print_letter(library, 'J');
 
   printf("\n");
-  printf("%p\n", library);
   printf("\n============================================================\n\n");
   printf("Let's test shuffle!\n");
   printf("Shuffle for 2 songs: \n");
@@ -102,7 +101,7 @@ void testLibrary(){
   remove_song1(library, "God's Plan", "Drake");
   print_library(library);
   printf("\n FREE LIBRARY!\n");
-  printf("clear_out");
+  printf("clear_out\n");
   clear_out(library);
 }
 int main(){

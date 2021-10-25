@@ -11,10 +11,7 @@ struct node ** make_library(){
 }
 
 void add_node(struct node ** library, char name[50], char artist[50]){
-  if(!(library[artist[0]-'A'])) library[artist[0]-'A'] = insert(NULL, name, artist);
-  else{
     library[artist[0]-'A'] = insert(library[artist[0]-'A'], name, artist);
-  }
 }
 
 struct node * song_search(struct node ** library, char name[50], char artist[50]){
@@ -60,7 +57,7 @@ void print_artist(struct node ** library, char singer[50]){
   }
 }
 
-int tally(struct node ** library){
+int get_num_nodes(struct node ** library){
   int i, count;
   count = 0;
   for(i = 0; i < 27; i++){
@@ -73,10 +70,10 @@ int tally(struct node ** library){
   return count;
 }
 
-struct node * print_shuffle(struct node **library){
+struct node * get_random_node(struct node **library, int num_nodes){
   int i, count;
   count = 0;
-  int r = rand() % tally(library);
+  int r = rand() % num_nodes;
   for(i = 0; i < 27; i++){
     struct node * n = library[i];
     while(n){
@@ -100,16 +97,17 @@ int isIn(struct node ** a, struct node * c, int len){
   return 0;
 }
 
-void shuffle(struct node **library, int n){
-  struct node * a[n];
-  while(n){
-    struct node * x = print_shuffle(library);
+void shuffle(struct node **library, int num){
+  struct node * shuffled_songs[num];
+  int num_nodes = get_num_nodes(library);
+  while(num){
+    struct node * n = get_random_node(library, num_nodes);
     int i = 0;
-    if(!isIn(a, x, n)){
-      a[i] = x;
+    if(!isIn(shuffled_songs, n, num)){
+      shuffled_songs[i] = n;
       i ++;
-      printf("{%s, %s}\n", x -> artist, x -> name);
-      n --;
+      printf("{%s, %s}\n", n -> artist, n -> name);
+      num --;
     }
   }
 }

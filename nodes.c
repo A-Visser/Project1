@@ -5,43 +5,39 @@
 #include <string.h>
 #include <time.h>
 
-
-
-struct node * insert_front(struct node *n, char song[50], char singer[50]){
-  struct node *m = malloc(sizeof(struct node));
-  strcpy(m -> name, song);
-  strcpy(m -> artist, singer);
-  m -> next = n;
-  return m;
+struct node * make_node(char song[50], char artist[50]){
+  struct node * new_node = malloc(sizeof(struct node));
+  strncpy(new_node -> name, song, sizeof(new_node->name));
+  strncpy(new_node -> artist, artist, sizeof(new_node->artist));
+  new_node -> next =  NULL;
+  return new_node;
 }
 
+
 struct node * insert(struct node *n, char song[50], char singer[50]){
-  if(!n)return insert_front(n, song, singer);
-  struct node * og = n;
+  struct node * new_node = make_node(song, singer);
+  if (!n) {
+    return new_node;
+  }
+  struct node * original = n;
   struct node * prev = NULL;
   while(n){
     if (strcmp(singer, n->artist)< 0 ||(strcmp(singer, n->artist) == 0 && strcmp(song, n->name) <=0)){
-      struct node *m = malloc(sizeof(struct node));
-      strcpy(m -> name, song);
-      strcpy(m -> artist, singer);
-      m -> next = n;
+      new_node -> next = n;
       if (prev){
-        prev -> next = m;
+        prev -> next = new_node;
+        return original;
       } else {
-        return m;
+        return new_node;
       }
     } else {
       prev = n;
       n = n -> next;
     }
   }
-  struct node *m = malloc(sizeof(struct node));
-  strcpy(m -> name, song);
-  strcpy(m -> artist, singer);
-  m -> next = n;
-  if(prev) prev -> next = m;
-  return og;
+  return original;
 }
+
 struct node * find_song(struct node *n, char song[50], char singer[50]){
   while(n){
     if(strcmp(n->name, song)== 0 && strcmp(n-> artist, singer) == 0){
@@ -128,10 +124,4 @@ void free_list(struct node *n){
     n = n->next;
     free(temp);
   }
-}
-int main(){
-  struct node * n = insert(NULL, "Motion Sickness", "Phoebe Bridgers");
-  n = insert(n, "Hello", "Adele");
-  print_list(n);
-  return 0;
 }
