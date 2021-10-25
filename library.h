@@ -1,1 +1,13 @@
-
+struct node ** make_library();
+void add_node(struct node ** library, char name[50], char artist[50]);
+struct node * song_search(struct node ** library, char name[50], char artist[50]);
+struct node * artist_search(struct node ** library, char artist[50]);
+void print_letter(struct node ** library, char c);
+void print_library(struct node ** library);
+void print_artist(struct node ** library, char artist[50]);
+int tally(struct node **library);
+struct node * print_shuffle(struct node **library);
+void shuffle(struct node **library, int n);
+int isIn(struct node ** a, struct node * c, int len);
+void remove_song1(struct node ** library, char song[50], char singer[50]);
+void clear_out(struct node ** library);
