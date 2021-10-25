@@ -14,30 +14,33 @@ struct node * insert_front(struct node *n, char song[50], char singer[50]){
   m -> next = n;
   return m;
 }
-struct node * insert_alphabetically_helper(struct node *n, struct node *prev, struct node *og, char song[50], char singer[50]){
-  if(!n){
-    struct node *m = malloc(sizeof(struct node));
-    strcpy(m -> name, song);
-    strcpy(m -> artist, singer);
-    if(prev) prev -> next = m;
-  }
-  else if(strcmp(singer, n->artist)< 0 ||(strcmp(singer, n->artist) == 0 && strcmp(song, n->name) <=0)){
-    struct node *m = malloc(sizeof(struct node));
-    strcpy(m -> name, song);
-    strcpy(m -> artist, singer);
-    m -> next = n;
-    if(prev) prev -> next = m;
-    else {
-      return m;
-    }
-  }else{
-    insert_alphabetically_helper(n->next, n, og, song, singer);
-  }
-  return og;
-}
+
 struct node * insert(struct node *n, char song[50], char singer[50]){
   if(!n)return insert_front(n, song, singer);
-  return insert_alphabetically_helper(n, NULL, n, song, singer);
+  struct * n = og;
+  struct * prev = NULL;
+  while(n){
+    if (strcmp(singer, n->artist)< 0 ||(strcmp(singer, n->artist) == 0 && strcmp(song, n->name) <=0)){
+      struct node *m = malloc(sizeof(struct node));
+      strcpy(m -> name, song);
+      strcpy(m -> artist, singer);
+      m -> next = n;
+      return og;
+      if (prev){
+        prev -> next = m;
+      } else {
+        return m;
+      }
+    } else {
+      prev = n;
+      n = n -> next;
+    }
+  }
+  struct node *m = malloc(sizeof(struct node));
+  strcpy(m -> name, song);
+  strcpy(m -> artist, singer);
+  m -> next = n;
+  if(prev) prev -> next = m;
 }
 struct node * find_song(struct node *n, char song[50], char singer[50]){
   while(n){
@@ -108,20 +111,19 @@ void print_node(struct node *n){
   }
 }
 void print_list(struct node *n){
-  if(n){
-    printf("{%s, %s}", n->artist, n->name);
+  while(n){
+    printf("{%s, %s} ", n->artist, n->name);
     if(n->next){
       printf(" | ");
-      print_list(n->next);
     }
-    printf(" \n");
-}
+  }
+  printf("\n");
 }
 
 struct node * free_list(struct node *n){
-  if(n->next != NULL){
-    free_list(n->next);
+  while(n){
+    struct node * temp = n;
+    n = n->next;
+    free(temp);
   }
-  free(n);
-  return n;
 }
