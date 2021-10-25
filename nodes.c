@@ -17,15 +17,14 @@ struct node * insert_front(struct node *n, char song[50], char singer[50]){
 
 struct node * insert(struct node *n, char song[50], char singer[50]){
   if(!n)return insert_front(n, song, singer);
-  struct * n = og;
-  struct * prev = NULL;
+  struct node * og = n;
+  struct node * prev = NULL;
   while(n){
     if (strcmp(singer, n->artist)< 0 ||(strcmp(singer, n->artist) == 0 && strcmp(song, n->name) <=0)){
       struct node *m = malloc(sizeof(struct node));
       strcpy(m -> name, song);
       strcpy(m -> artist, singer);
       m -> next = n;
-      return og;
       if (prev){
         prev -> next = m;
       } else {
@@ -41,6 +40,7 @@ struct node * insert(struct node *n, char song[50], char singer[50]){
   strcpy(m -> artist, singer);
   m -> next = n;
   if(prev) prev -> next = m;
+  return og;
 }
 struct node * find_song(struct node *n, char song[50], char singer[50]){
   while(n){
@@ -116,14 +116,22 @@ void print_list(struct node *n){
     if(n->next){
       printf(" | ");
     }
+    n = n-> next;
   }
   printf("\n");
 }
 
-struct node * free_list(struct node *n){
+void free_list(struct node *n){
+  struct node * og = n;
   while(n){
     struct node * temp = n;
     n = n->next;
     free(temp);
   }
+}
+int main(){
+  struct node * n = insert(NULL, "Motion Sickness", "Phoebe Bridgers");
+  n = insert(n, "Hello", "Adele");
+  print_list(n);
+  return 0;
 }

@@ -13,4 +13,4 @@ int find_random_helper(struct node *n);
 struct node * remove_song(struct node *n, char song[50], char singer[50]);
 void print_node(struct node *n);
 void print_list(struct node *n);
-struct node * free_list(struct node *n);
+void free_list(struct node *n);
